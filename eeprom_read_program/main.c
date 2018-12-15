@@ -38,7 +38,7 @@ int main() {
     }
     else
     {
-        printf("öffen hat funktioniert\n");
+        printf("öffen hat funktioniert\n\n");
     }
 
     printf("Folgende Werte wurden aus der EEPROM Datei gelesen:\n");
@@ -46,7 +46,7 @@ int main() {
     u_int8_t status_byte;
     u_int16_t adc_measurement_2_5v,adc_measurement_4v,adc_slope_error,adc_offset_temp_error;
     u_int32_t adc_offset_error;
-    int check=0;
+    int check_borders=0;
 
     status_byte=read_byte_and_convert(eeprom_datei,STATUS_START_POSITION);
     adc_measurement_2_5v=read_two_byte_and_convert(eeprom_datei,_2_5v_VOLT_MEASUREMENT_START_POSITION);
@@ -66,23 +66,26 @@ int main() {
     if(!(ADC_SLOPE_ERROR_LOWER_BORDER<adc_slope_error<ADC_SLOPE_ERROR_UPPER_BORDER)
     {
         printf("Der adc slope error befindet sich außerhalb der Grenzen!");
-        check=1;
+        check_borders=1;
     }
     if(!(ADC_OFFSET_ERROR_LOWER_BORDER<adc_offset_error<ADC_OFFSET_ERROR_UPPER_BORDER))
     {
         printf("Der adc offset error befindet sich außerhalb der Grenzen!");
-        check=1;
+        check_borders=1;
     }
     if(!(ADC_OFFSET_ERROR_TEMP_LOWER_BORDER<adc_offset_error<ADC_OFFSET_ERROR_TEMP_UPPER_BORDER))
     {
         printf("Der adc offset temp error befindet sich außerhalb der Grenzen!");
         check=1;
     }
-    if(!check==1)
+    if(!check_borders==1)
     {
         printf("Die Werte dürften alle in Ordnung sein!");
     }
     */
+
+    printf("\nWollen Sie irgendwelche Korekturen vornehmen?\nSchreiben Sie JA oder NEIN\n");
+
 
     fclose(eeprom_datei);
 
