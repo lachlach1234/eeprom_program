@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/cc -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/eeprom_read_program.dir/main.c.o CMakeFiles/eeprom_read_program.dir/conversions.c.o CMakeFiles/eeprom_read_program.dir/file_read.c.o  -o eeprom_read_program 

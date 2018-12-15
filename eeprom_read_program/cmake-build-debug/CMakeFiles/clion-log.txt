@@ -1,0 +1,4 @@
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_read_program"
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_read_program/cmake-build-debug

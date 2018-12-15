@@ -1,0 +1,25 @@
+//
+// Created by Klemens Rameder on 2018-12-13.
+//
+
+#ifndef EEPROM_READ_PROGRAM_FILE_READ_H
+#define EEPROM_READ_PROGRAM_FILE_READ_H
+
+#include <ntsid.h>
+#include <stdio.h>
+
+struct read_array
+{
+    u_int8_t array[8];
+};
+
+//Funktionen um unterschiedlich viele positionen(1/2/4) aus der Datei auszulesen
+void read_file(FILE * , int start_position, int menge,struct read_array * read);
+
+//Funktion um 1/2/4 byte aus HEX Datei zu lesen und zu binaer umzuwandeln
+u_int8_t read_byte_and_convert(FILE * , int start_position);
+u_int16_t read_two_byte_and_convert(FILE * , int start_position);
+u_int32_t read_four_byte_and_convert(FILE * , int start_position);
+
+#endif //EEPROM_READ_PROGRAM_FILE_READ_H
+
