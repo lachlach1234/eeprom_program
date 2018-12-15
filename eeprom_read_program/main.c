@@ -1,5 +1,4 @@
 
-//github test
 
 #include <stdio.h>
 #include "conversions.h"
@@ -16,6 +15,12 @@
 #define TEMPERATURE_CALCULATION 1.1/1024*77.5757588-23
 #define ADC_VALUE_FOR_23C 276
 
+#define ADC_SLOPE_ERROR_LOWER_BORDER 1
+#define ADC_SLOPE_ERROR_UPPER_BORDER 1
+#define ADC_OFFSET_ERROR_LOWER_BORDER 1
+#define ADC_OFFSET_ERROR_UPPER_BORDER 1
+#define ADC_OFFSET_ERROR_TEMP_LOWER_BORDER 1
+#define ADC_OFFSET_ERROR_TEMP_UPPER_BORDER 1
 
 int main() {
 
@@ -41,22 +46,43 @@ int main() {
     u_int8_t status_byte;
     u_int16_t adc_measurement_2_5v,adc_measurement_4v,adc_slope_error,adc_offset_temp_error;
     u_int32_t adc_offset_error;
+    int check=0;
 
     status_byte=read_byte_and_convert(eeprom_datei,STATUS_START_POSITION);
     adc_measurement_2_5v=read_two_byte_and_convert(eeprom_datei,_2_5v_VOLT_MEASUREMENT_START_POSITION);
     adc_measurement_4v=read_two_byte_and_convert(eeprom_datei,_4v_VOLT_MEASUREMENT_START_POISTION);
     adc_slope_error=read_two_byte_and_convert(eeprom_datei,ADC_SLOPE_ERROR_START_POSITION);
-    adc_offset_error=read_four_byte_and_convert(eeprom_datei,ADC_OFFSET_ERROR_START_POSITION);
+    adc_offset_error=read_two_byte_and_convert(eeprom_datei,ADC_OFFSET_ERROR_START_POSITION);
     adc_offset_temp_error=read_two_byte_and_convert(eeprom_datei,ADC_OFFSET_ERROR_TEMP_START_POSITION);
 
-    printf("StatusByte: %d\n",status_byte);
+    printf("StatusByte: %d (%x)\n",status_byte,status_byte);
     printf("2,5v value: %.2fV (%d)\n",adc_measurement_2_5v*VOLTAGE_CALCULATION,adc_measurement_2_5v);
     printf("4v value: %.2fV (%d)\n",adc_measurement_4v*VOLTAGE_CALCULATION,adc_measurement_4v);
     printf("ADC slope error %d yV\n",adc_slope_error);
     printf("ADC offset error %zu\n",adc_offset_error);
     printf("ADC offset error %2.f°C (%d)\n",adc_offset_temp_error*TEMPERATURE_CALCULATION,adc_offset_temp_error-ADC_VALUE_FOR_23C);
 
-
+    /*
+    if(!(ADC_SLOPE_ERROR_LOWER_BORDER<adc_slope_error<ADC_SLOPE_ERROR_UPPER_BORDER)
+    {
+        printf("Der adc slope error befindet sich außerhalb der Grenzen!");
+        check=1;
+    }
+    if(!(ADC_OFFSET_ERROR_LOWER_BORDER<adc_offset_error<ADC_OFFSET_ERROR_UPPER_BORDER))
+    {
+        printf("Der adc offset error befindet sich außerhalb der Grenzen!");
+        check=1;
+    }
+    if(!(ADC_OFFSET_ERROR_TEMP_LOWER_BORDER<adc_offset_error<ADC_OFFSET_ERROR_TEMP_UPPER_BORDER))
+    {
+        printf("Der adc offset temp error befindet sich außerhalb der Grenzen!");
+        check=1;
+    }
+    if(!check==1)
+    {
+        printf("Die Werte dürften alle in Ordnung sein!");
+    }
+    */
 
     fclose(eeprom_datei);
 
