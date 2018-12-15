@@ -43,10 +43,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_read_program"
+CMAKE_SOURCE_DIR = "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_program/eeprom_read_program"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_read_program/cmake-build-debug"
+CMAKE_BINARY_DIR = "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_program/eeprom_read_program/cmake-build-debug"
 
 # Include any dependencies generated for this target.
 include CMakeFiles/eeprom_read_program.dir/depend.make
@@ -59,42 +59,42 @@ include CMakeFiles/eeprom_read_program.dir/flags.make
 
 CMakeFiles/eeprom_read_program.dir/main.c.o: CMakeFiles/eeprom_read_program.dir/flags.make
 CMakeFiles/eeprom_read_program.dir/main.c.o: ../main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_read_program/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/eeprom_read_program.dir/main.c.o"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/eeprom_read_program.dir/main.c.o   -c "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_read_program/main.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_program/eeprom_read_program/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/eeprom_read_program.dir/main.c.o"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/eeprom_read_program.dir/main.c.o   -c "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_program/eeprom_read_program/main.c"
 
 CMakeFiles/eeprom_read_program.dir/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/eeprom_read_program.dir/main.c.i"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_read_program/main.c" > CMakeFiles/eeprom_read_program.dir/main.c.i
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_program/eeprom_read_program/main.c" > CMakeFiles/eeprom_read_program.dir/main.c.i
 
 CMakeFiles/eeprom_read_program.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/eeprom_read_program.dir/main.c.s"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_read_program/main.c" -o CMakeFiles/eeprom_read_program.dir/main.c.s
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_program/eeprom_read_program/main.c" -o CMakeFiles/eeprom_read_program.dir/main.c.s
 
 CMakeFiles/eeprom_read_program.dir/conversions.c.o: CMakeFiles/eeprom_read_program.dir/flags.make
 CMakeFiles/eeprom_read_program.dir/conversions.c.o: ../conversions.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_read_program/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/eeprom_read_program.dir/conversions.c.o"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/eeprom_read_program.dir/conversions.c.o   -c "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_read_program/conversions.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_program/eeprom_read_program/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/eeprom_read_program.dir/conversions.c.o"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/eeprom_read_program.dir/conversions.c.o   -c "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_program/eeprom_read_program/conversions.c"
 
 CMakeFiles/eeprom_read_program.dir/conversions.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/eeprom_read_program.dir/conversions.c.i"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_read_program/conversions.c" > CMakeFiles/eeprom_read_program.dir/conversions.c.i
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_program/eeprom_read_program/conversions.c" > CMakeFiles/eeprom_read_program.dir/conversions.c.i
 
 CMakeFiles/eeprom_read_program.dir/conversions.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/eeprom_read_program.dir/conversions.c.s"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_read_program/conversions.c" -o CMakeFiles/eeprom_read_program.dir/conversions.c.s
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_program/eeprom_read_program/conversions.c" -o CMakeFiles/eeprom_read_program.dir/conversions.c.s
 
 CMakeFiles/eeprom_read_program.dir/file_read.c.o: CMakeFiles/eeprom_read_program.dir/flags.make
 CMakeFiles/eeprom_read_program.dir/file_read.c.o: ../file_read.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_read_program/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/eeprom_read_program.dir/file_read.c.o"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/eeprom_read_program.dir/file_read.c.o   -c "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_read_program/file_read.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_program/eeprom_read_program/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/eeprom_read_program.dir/file_read.c.o"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/eeprom_read_program.dir/file_read.c.o   -c "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_program/eeprom_read_program/file_read.c"
 
 CMakeFiles/eeprom_read_program.dir/file_read.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/eeprom_read_program.dir/file_read.c.i"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_read_program/file_read.c" > CMakeFiles/eeprom_read_program.dir/file_read.c.i
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_program/eeprom_read_program/file_read.c" > CMakeFiles/eeprom_read_program.dir/file_read.c.i
 
 CMakeFiles/eeprom_read_program.dir/file_read.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/eeprom_read_program.dir/file_read.c.s"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_read_program/file_read.c" -o CMakeFiles/eeprom_read_program.dir/file_read.c.s
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_program/eeprom_read_program/file_read.c" -o CMakeFiles/eeprom_read_program.dir/file_read.c.s
 
 # Object files for target eeprom_read_program
 eeprom_read_program_OBJECTS = \
@@ -110,7 +110,7 @@ eeprom_read_program: CMakeFiles/eeprom_read_program.dir/conversions.c.o
 eeprom_read_program: CMakeFiles/eeprom_read_program.dir/file_read.c.o
 eeprom_read_program: CMakeFiles/eeprom_read_program.dir/build.make
 eeprom_read_program: CMakeFiles/eeprom_read_program.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_read_program/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Linking C executable eeprom_read_program"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_program/eeprom_read_program/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Linking C executable eeprom_read_program"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/eeprom_read_program.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -123,6 +123,6 @@ CMakeFiles/eeprom_read_program.dir/clean:
 .PHONY : CMakeFiles/eeprom_read_program.dir/clean
 
 CMakeFiles/eeprom_read_program.dir/depend:
-	cd "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_read_program/cmake-build-debug" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_read_program" "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_read_program" "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_read_program/cmake-build-debug" "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_read_program/cmake-build-debug" "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_read_program/cmake-build-debug/CMakeFiles/eeprom_read_program.dir/DependInfo.cmake" --color=$(COLOR)
+	cd "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_program/eeprom_read_program/cmake-build-debug" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_program/eeprom_read_program" "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_program/eeprom_read_program" "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_program/eeprom_read_program/cmake-build-debug" "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_program/eeprom_read_program/cmake-build-debug" "/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom_program/eeprom_read_program/cmake-build-debug/CMakeFiles/eeprom_read_program.dir/DependInfo.cmake" --color=$(COLOR)
 .PHONY : CMakeFiles/eeprom_read_program.dir/depend
 
