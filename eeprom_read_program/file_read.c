@@ -6,7 +6,7 @@
 #include "stdio.h"
 #include "conversions.h"
 
-void read_file(FILE * datei, int start_position, int menge, struct read_array *daten)
+void read_file(FILE * datei, int start_position, int menge, struct read_write_array *daten)
 {
     int read_check,i;
     u_int8_t read;
@@ -18,11 +18,20 @@ void read_file(FILE * datei, int start_position, int menge, struct read_array *d
     }
 }
 
+void write_file(FILE * datei, int start_position, int menge, struct read_write_array *daten)
+{
+    int write_check,i;
+    for (i=0; i<menge; i++)
+    {
+        fseek(datei,start_position+i, SEEK_SET);
+        write_check=fwrite(daten->array[i],1,1,datei);
+    }
+}
 
 u_int8_t read_byte_and_convert(FILE * datei, int start_position)
 {
     u_int8_t result;
-    struct read_array read;
+    struct read_write_array read;
 
     read_file(datei,start_position,2,&read);
     result = hex_to_binaer(read.array[0],read.array[1]);
@@ -33,7 +42,7 @@ u_int16_t read_two_byte_and_convert(FILE * datei, int start_position)
 {
     u_int8_t binaer[2];
     u_int16_t result;
-    struct read_array read;
+    struct read_write_array read;
     read_file(datei,start_position,4,&read);
     binaer[0]=hex_to_binaer(read.array[0],read.array[1]);
     binaer[1]=hex_to_binaer(read.array[2],read.array[3]);
@@ -46,7 +55,7 @@ u_int32_t read_four_byte_and_convert(FILE * datei, int start_position)
 {
     u_int8_t binaer[4];
     u_int32_t result;
-    struct read_array read;
+    struct read_write_array read;
     read_file(datei,start_position,8,&read);
     binaer[0]=hex_to_binaer(read.array[0],read.array[1]);
     binaer[1]=hex_to_binaer(read.array[2],read.array[3]);

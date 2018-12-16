@@ -8,13 +8,16 @@
 #include <ntsid.h>
 #include <stdio.h>
 
-struct read_array
+struct read_write_array
 {
     u_int8_t array[8];
 };
 
-//Funktionen um unterschiedlich viele positionen(1/2/4) aus der Datei auszulesen
-void read_file(FILE * , int start_position, int menge,struct read_array * read);
+//Funktion um maximal acht digits aus einer Datei zu leisen mit angabe der start position
+void read_file(FILE * , int start_position, int menge, struct read_write_array * read);
+
+//Funktion um maximal acht digits in eine Datei zu  schreiben mit angabe der start position
+void write_file(FILE *, int start_position, int menge, struct read_write_array * write);
 
 //Funktion um 1/2/4 byte aus HEX Datei zu lesen und zu binaer umzuwandeln
 u_int8_t read_byte_and_convert(FILE * , int start_position);

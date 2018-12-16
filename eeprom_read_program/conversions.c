@@ -4,7 +4,6 @@
 
 #include "conversions.h"
 
-
 u_int8_t hex_to_binaer(char char_high, char char_low)
 {
     u_int8_t result=0;

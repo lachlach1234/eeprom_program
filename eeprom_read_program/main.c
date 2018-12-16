@@ -1,6 +1,8 @@
 
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "conversions.h"
 #include "file_read.h"
 
@@ -44,9 +46,10 @@ int main() {
     printf("Folgende Werte wurden aus der EEPROM Datei gelesen:\n");
 
     u_int8_t status_byte;
-    u_int16_t adc_measurement_2_5v,adc_measurement_4v,adc_slope_error,adc_offset_temp_error;
-    u_int32_t adc_offset_error;
-    int check_borders=0;
+    u_int16_t adc_measurement_2_5v,adc_measurement_4v,adc_slope_error,adc_offset_temp_error,adc_slope_error_input,adc_offset_temp_error_input;
+    u_int32_t adc_offset_error,adc_offset_error_input;
+    int check_borders=0,x=0;
+    char user_input[3];
 
     status_byte=read_byte_and_convert(eeprom_datei,STATUS_START_POSITION);
     adc_measurement_2_5v=read_two_byte_and_convert(eeprom_datei,_2_5v_VOLT_MEASUREMENT_START_POSITION);
@@ -86,9 +89,27 @@ int main() {
 
     printf("\nWollen Sie irgendwelche Korekturen vornehmen?\nSchreiben Sie JA oder NEIN\n");
 
+    do {
+        fflush(stdin);
+        scanf("%s",&user_input[0]);
+        if (!strcmp(user_input, "JA"))
+        {
+            printf("Sie können jetzt die von Ihnen gewünschten Werte eingeben");
+            x=1;
+        }
+        else if (!strcmp(user_input, "NEIN"))
+        {
+            x=1;
+        }
+        else
+        {
+            printf("Ungültige Eingabe!");
+        }
+    }while (x==0);
+
+
 
     fclose(eeprom_datei);
-
 
     return 0;
 }
