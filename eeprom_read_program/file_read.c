@@ -18,14 +18,12 @@ void read_file(FILE * datei, int start_position, int menge, struct read_write_ar
     }
 }
 
-void write_file(FILE * datei, int start_position, int menge, struct read_write_array *daten)
+void write_file(FILE * datei, int start_position, int menge, char a[])
 {
     int write_check,i;
-    for (i=0; i<menge; i++)
-    {
-        fseek(datei,start_position+i, SEEK_SET);
-        write_check=fwrite(daten->array[i],1,1,datei);
-    }
+
+    fseek(datei,start_position+i, SEEK_SET);
+    write_check=fwrite(a,1,menge,datei);
 }
 
 u_int8_t read_byte_and_convert(FILE * datei, int start_position)

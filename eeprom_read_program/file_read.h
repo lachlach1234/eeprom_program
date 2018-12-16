@@ -17,7 +17,7 @@ struct read_write_array
 void read_file(FILE * , int start_position, int menge, struct read_write_array * read);
 
 //Funktion um maximal acht digits in eine Datei zu  schreiben mit angabe der start position
-void write_file(FILE *, int start_position, int menge, struct read_write_array * write);
+void write_file(FILE *, int start_position, int menge,char []);
 
 //Funktion um 1/2/4 byte aus HEX Datei zu lesen und zu binaer umzuwandeln
 u_int8_t read_byte_and_convert(FILE * , int start_position);

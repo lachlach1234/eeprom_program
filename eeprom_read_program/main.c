@@ -31,9 +31,10 @@ int main() {
 
     printf("Bitte geben Sie den Pfad für die EEPROM Datei ein!");
     gets(pfad);
+    //fflush(stdin);
+    //scanf("%100s",&pfad[0]);
 
-    eeprom_datei=fopen(pfad,"r+w");
-    //eeprom_datei=fopen("/Users/klemensrameder/Library/Mobile Documents/com~apple~CloudDocs/Diplomarbeit/Software/eeprom/12.12.2018/read_after_2.5V_calibration.eep","r+");
+    eeprom_datei=fopen(pfad,"r+");
     if (eeprom_datei==NULL)
     {
         printf("Datei kann nicht geöffnet werden!");
@@ -86,7 +87,7 @@ int main() {
         printf("Die Werte dürften alle in Ordnung sein!");
     }
     */
-
+    /*
     printf("\nWollen Sie irgendwelche Korekturen vornehmen?\nSchreiben Sie JA oder NEIN\n");
 
     do {
@@ -106,8 +107,10 @@ int main() {
             printf("Ungültige Eingabe!");
         }
     }while (x==0);
+     */
 
-
+    char a[2] = {'1','4'};
+    write_file(eeprom_datei,100,2,a);
 
     fclose(eeprom_datei);
 
