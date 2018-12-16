@@ -1,7 +1,7 @@
 
 
 #include <stdio.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 #include <string.h>
 #include "conversions.h"
 #include "file_read.h"
@@ -111,6 +111,12 @@ int main() {
 
     char a[2] = {'1','4'};
     write_file(eeprom_datei,100,2,a);
+
+    int  num = 255;
+    char hex[5];
+
+    sprintf(hex, "%x", num);
+    puts(hex);
 
     fclose(eeprom_datei);
 
