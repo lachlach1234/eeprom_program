@@ -49,7 +49,7 @@ int main() {
     u_int8_t status_byte;
     u_int16_t adc_measurement_2_5v,adc_measurement_4v,adc_slope_error,adc_offset_temp_error,adc_slope_error_input,adc_offset_temp_error_input;
     u_int32_t adc_offset_error,adc_offset_error_input;
-    int check_borders=0,x=0;
+    int check_borders=0,cd1=0,cd2=0,cd3=0,cd4=0;
     char user_input[3];
 
     status_byte=read_byte_and_convert(eeprom_datei,STATUS_START_POSITION);
@@ -69,17 +69,17 @@ int main() {
     /*
     if(!(ADC_SLOPE_ERROR_LOWER_BORDER<adc_slope_error<ADC_SLOPE_ERROR_UPPER_BORDER)
     {
-        printf("Der adc slope error befindet sich außerhalb der Grenzen!");
+        printf("Der adc slope error befindet sich außerhalb der Grenzen!\n");
         check_borders=1;
     }
     if(!(ADC_OFFSET_ERROR_LOWER_BORDER<adc_offset_error<ADC_OFFSET_ERROR_UPPER_BORDER))
     {
-        printf("Der adc offset error befindet sich außerhalb der Grenzen!");
+        printf("Der adc offset error befindet sich außerhalb der Grenzen!\n");
         check_borders=1;
     }
-    if(!(ADC_OFFSET_ERROR_TEMP_LOWER_BORDER<adc_offset_error<ADC_OFFSET_ERROR_TEMP_UPPER_BORDER))
+    if(!(ADC_OFFSET_ERROR_TEMP_LOWER_BORDER<adc_offset_temp_error<ADC_OFFSET_ERROR_TEMP_UPPER_BORDER))
     {
-        printf("Der adc offset temp error befindet sich außerhalb der Grenzen!");
+        printf("Der adc offset temp error befindet sich außerhalb der Grenzen!\n");
         check=1;
     }
     if(!check_borders==1)
@@ -87,7 +87,7 @@ int main() {
         printf("Die Werte dürften alle in Ordnung sein!");
     }
     */
-    /*
+
     printf("\nWollen Sie irgendwelche Korekturen vornehmen?\nSchreiben Sie JA oder NEIN\n");
 
     do {
@@ -95,28 +95,81 @@ int main() {
         scanf("%s",&user_input[0]);
         if (!strcmp(user_input, "JA"))
         {
-            printf("Sie können jetzt die von Ihnen gewünschten Werte eingeben");
-            x=1;
+            printf("Sie können jetzt die von Ihnen gewünschten Werte eingeben.\nWenn Sie den Wert nicht verändern wollen geben sie 0 ein!");
+            printf("adc slope value (in INT): ");
+            do {
+                fflush(stdin);
+                scanf("%d",adc_slope_error_input);
+                if (adc_slope_error_input==0)
+                {
+                    cd2=1;
+                } else if ((!ADC_SLOPE_ERROR_LOWER_BORDER<adc_slope_error_input<ADC_SLOPE_ERROR_UPPER_BORDER))
+                {
+                    printf("Eingabe befindet sich außerhalb der Grenzen!");
+                } else
+                {
+                    char adc_slope_error_input_hex[3];
+                    sprintf(adc_slope_error_input_hex, "%x", adc_slope_error_input);
+                    write_file(eeprom_datei,100,2,adc_slope_error_input_hex);
+                    cd2=1;
+                }
+            }while (cd2==0);
+            printf("adc offset error (in INT): ");
+            do {
+                fflush(stdin);
+                scanf("%d",adc_offset_error_input);
+                if (adc_offset_error_input==0)
+                {
+                    cd3=1;
+                } else if (!(ADC_OFFSET_ERROR_LOWER_BORDER<adc_offset_error_input<ADC_OFFSET_ERROR_UPPER_BORDER))
+                {
+                    printf("Eingabe befindet sich außerhalb der Grenzen!");
+                } else
+                {
+                    //Wert umwandeln und in File Speichern
+                    cd3=1;
+                }
+            }while (cd3==0);
+            printf("adc offset temp error (in °C)");
+            do {
+                fflush(stdin);
+                scanf("%d",adc_offset_temp_error_input);
+                if (adc_offset_temp_error_input==0)
+                {
+                    cd4=1;
+                } else if (!(ADC_OFFSET_ERROR_TEMP_LOWER_BORDER<adc_offset_temp_error_input<ADC_OFFSET_ERROR_TEMP_UPPER_BORDER))
+                {
+                    printf("Eingabe befindet sich außerhalb der Grenzen!");
+                } else
+                {
+                    adc_offset_temp_error_input += ADC_VALUE_FOR_23C;
+                    adc_offset_temp_error_input /= TEMPERATURE_CALCULATION;
+                    char adc_offset_temp_error_input_hex[3];
+                    sprintf(adc_offset_temp_error_input_hex, "%x", adc_offset_temp_error_input);
+                    write_file(eeprom_datei,100,2,adc_offset_temp_error_input_hex);
+                    cd4=1;
+                }
+            }while (cd4==0);
+            cd1=1;
         }
         else if (!strcmp(user_input, "NEIN"))
         {
-            x=1;
+            cd1=1;
         }
         else
         {
             printf("Ungültige Eingabe!");
         }
-    }while (x==0);
-     */
+    }while (cd1==0);
 
+    /*
     char a[2] = {'1','4'};
     write_file(eeprom_datei,100,2,a);
-
-    int  num = 255;
-    char hex[5];
-
+    int  num = 247;
+    char hex[3];
     sprintf(hex, "%x", num);
     puts(hex);
+    */
 
     fclose(eeprom_datei);
 
