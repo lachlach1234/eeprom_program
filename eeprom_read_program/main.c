@@ -162,17 +162,7 @@ int main() {
         }
     }while (cd1==0);
 
-    /*
-    char a[2] = {'1','4'};
-    write_file(eeprom_datei,100,2,a);
-    int  num = 247;
-    char hex[3];
-    sprintf(hex, "%x", num);
-    puts(hex);
-    */
-
     fclose(eeprom_datei);
 
     return 0;
 }
-//upload test
