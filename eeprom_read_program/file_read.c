@@ -20,9 +20,9 @@ void read_file(FILE * datei, int start_position, int menge, struct read_write_ar
 
 void write_file(FILE * datei, int start_position, int menge, char a[])
 {
-    int write_check,i;
+    int write_check;
 
-    fseek(datei,start_position+i, SEEK_SET);
+    fseek(datei,start_position, SEEK_SET);
     write_check=fwrite(a,1,menge,datei);
 }
 
