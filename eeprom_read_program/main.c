@@ -3,9 +3,11 @@
 #include <stdio.h>
 //#include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include "conversions.h"
 #include "file_read.h"
 
+//Defines zum Auslesen
 #define STATUS_START_POSITION 9
 #define _2_5v_VOLT_MEASUREMENT_START_POSITION 11
 #define _4v_VOLT_MEASUREMENT_START_POISTION 15
@@ -13,36 +15,38 @@
 #define ADC_OFFSET_ERROR_START_POSITION 23
 #define ADC_OFFSET_ERROR_TEMP_START_POSITION 31
 
+//Macros fuer Berechnungen
 #define VOLTAGE_CALCULATION 1.1/1024*4.3
 #define TEMPERATURE_CALCULATION 1.1/1024*77.5757588-23
 #define ADC_VALUE_FOR_23C 276
 
-#define ADC_SLOPE_ERROR_LOWER_BORDER 1
-#define ADC_SLOPE_ERROR_UPPER_BORDER 1
-#define ADC_OFFSET_ERROR_LOWER_BORDER 1
-#define ADC_OFFSET_ERROR_UPPER_BORDER 1
-#define ADC_OFFSET_ERROR_TEMP_LOWER_BORDER 1
-#define ADC_OFFSET_ERROR_TEMP_UPPER_BORDER 1
+//Defines für Grenzen
+#define ADC_SLOPE_ERROR_LOWER_BORDER 0
+#define ADC_SLOPE_ERROR_UPPER_BORDER 10000
+#define ADC_OFFSET_ERROR_LOWER_BORDER 0
+#define ADC_OFFSET_ERROR_UPPER_BORDER 10000
+#define ADC_OFFSET_ERROR_TEMP_LOWER_BORDER 0
+#define ADC_OFFSET_ERROR_TEMP_UPPER_BORDER 10000
 
 int main() {
 
     FILE *eeprom_datei;
     char pfad[500];
+    bool check=false;
 
     printf("Bitte geben Sie den Pfad für die EEPROM Datei ein!");
-    gets(pfad);
-    //fflush(stdin);
-    //scanf("%100s",&pfad[0]);
 
-    eeprom_datei=fopen(pfad,"r+");
-    if (eeprom_datei==NULL)
-    {
-        printf("Datei kann nicht geöffnet werden!");
-    }
-    else
-    {
-        printf("öffen hat funktioniert\n\n");
-    }
+    do {
+        gets(pfad);
+
+        eeprom_datei = fopen(pfad, "r+");
+        if (eeprom_datei == NULL) {
+            printf("Datei kann nicht geöffnet werden!");
+        } else {
+            printf("öffen hat funktioniert\n\n");
+            check=true;
+        }
+    }while(check==false);
 
     printf("Folgende Werte wurden aus der EEPROM Datei gelesen:\n");
 
