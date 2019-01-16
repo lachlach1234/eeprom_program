@@ -54,10 +54,11 @@ int main() {
     //-------------Auslesen des Fikes und Anzeigen der Werte-------------
 
     u_int8_t status_byte;
-    u_int16_t adc_measurement_2_5v,adc_measurement_4v,adc_slope_error,adc_offset_temp_error,adc_slope_error_input,adc_offset_temp_error_input;
+    u_int16_t adc_measurement_2_5v,adc_measurement_4v,adc_slope_error,adc_offset_temp_error,adc_slope_error_input;//adc_offset_temp_error_input;
     u_int32_t adc_offset_error,adc_offset_error_input;
     bool check_borders_violation=false,cd1=false,cd2=false,cd3=false,cd4=false;
     char user_input[3];
+    u_int16_t adc_offset_temp_error_input=0;
 
     status_byte=read_byte_and_convert(eeprom_datei,STATUS_START_POSITION);
     adc_measurement_2_5v=read_two_byte_and_convert(eeprom_datei,_2_5v_VOLT_MEASUREMENT_START_POSITION);
@@ -100,12 +101,13 @@ int main() {
     //-------------------------------------------------------------------
     //------------------Verändern der Daten wenn erwünscht---------------
 
-    printf("\n\nWollen Sie irgendwelche Korekturen vornehmen?\nSchreiben Sie JA oder NEIN\n");
+    printf("\n\nWollen Sie irgendwelche Korekturen vornehmen?\nSchreiben Sie y (für Ja) oder n (für Nein)\n");
+    char adc_slope_error_input_hex[3];
 
     do {
         fflush(stdin);
         scanf("%s",&user_input[0]);
-        if (!strcmp(user_input, "JA"))
+        if (!strcmp(user_input, "y"))
         {
             printf("Sie können jetzt die von Ihnen gewünschten Werte eingeben.\nWenn Sie den Wert nicht verändern wollen geben sie 0 ein!\n");
             printf("adc slope value (in INT): ");
@@ -115,12 +117,12 @@ int main() {
                 if (adc_slope_error_input==0)
                 {
                     cd2=true;
-                } else if ((!ADC_SLOPE_ERROR_LOWER_BORDER<adc_slope_error_input<ADC_SLOPE_ERROR_UPPER_BORDER))
+                } else if (!(ADC_SLOPE_ERROR_LOWER_BORDER<adc_slope_error_input<ADC_SLOPE_ERROR_UPPER_BORDER))
                 {
                     printf("Eingabe befindet sich außerhalb der Grenzen!");
                 } else
                 {
-                    char adc_slope_error_input_hex[3];
+                    //char adc_slope_error_input_hex[3];
                     sprintf(adc_slope_error_input_hex, "%x", adc_slope_error_input);
                     write_file(eeprom_datei,ADC_SLOPE_ERROR_START_POSITION,2,adc_slope_error_input_hex);
                     cd2=true;
@@ -154,9 +156,8 @@ int main() {
                     printf("Eingabe befindet sich außerhalb der Grenzen!");
                 } else
                 {
-                    adc_offset_temp_error_input += ADC_VALUE_FOR_23C;
-                    adc_offset_temp_error_input /= TEMPERATURE_CALCULATION;
-                    char adc_offset_temp_error_input_hex[3];
+                    adc_offset_temp_error_input = (adc_offset_temp_error_input+23)/77.57588*1024/1.1;
+                    char adc_offset_temp_error_input_hex[5];
                     sprintf(adc_offset_temp_error_input_hex, "%x", adc_offset_temp_error_input);
                     write_file(eeprom_datei,ADC_OFFSET_ERROR_TEMP_START_POSITION,2,adc_offset_temp_error_input_hex);
                     cd4=true;
@@ -164,7 +165,7 @@ int main() {
             }while (cd4==false);
             cd1=1;
         }
-        else if (!strcmp(user_input, "NEIN"))
+        else if (!strcmp(user_input, "n"))
         {
             cd1=1;
         }
@@ -207,4 +208,3 @@ int main() {
     return 0;
 }
 
-//test

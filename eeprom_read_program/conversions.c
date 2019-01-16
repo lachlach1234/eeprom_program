@@ -47,6 +47,8 @@ u_int8_t hex_to_binaer(char char_high, char char_low)
     return result;
 }
 
+
+
 u_int16_t two_byte_combining_swap(u_int8_t byte_high, u_int8_t byte_low)
 {
     u_int16_t result=0;
