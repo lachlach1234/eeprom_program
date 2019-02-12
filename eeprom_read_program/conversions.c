@@ -9,6 +9,7 @@ u_int8_t hex_to_binaer(char char_high, char char_low)
     u_int8_t result=0;
     switch(char_low)
     {
+        case '0':result |= 0b00000000; break;
         case '1':result |= 0b00000001; break;
         case '2':result |= 0b00000010; break;
         case '3':result |= 0b00000011; break;
@@ -28,6 +29,7 @@ u_int8_t hex_to_binaer(char char_high, char char_low)
 
     switch(char_high)
     {
+        case '0':result |= 0b00000000; break;
         case '1':result |= 0b00010000; break;
         case '2':result |= 0b00100000; break;
         case '3':result |= 0b00110000; break;

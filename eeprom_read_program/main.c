@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include "conversions.h"
 #include "file_read.h"
+#include "string.h"
 
 //Defines zum Auslesen und Schreiben
 #define STATUS_START_POSITION 9
@@ -18,7 +19,7 @@
 
 //Macros fuer Berechnungen
 #define VOLTAGE_CALCULATION 1.1/1024*4.3
-#define TEMPERATURE_CALCULATION 1.1/1024*77.5757588-23
+#define TEMPERATURE_CALCULATION 1.1/1024*77.57588-23
 #define ADC_VALUE_FOR_23C 276
 
 //Defines für Grenzen
@@ -73,7 +74,7 @@ int main() {
     printf("4v value: %.2fV (%d)\n",adc_measurement_4v*VOLTAGE_CALCULATION,adc_measurement_4v);
     printf("ADC slope error %d yV\n",adc_slope_error);
     printf("ADC offset error %zu\n",adc_offset_error);
-    printf("ADC offset error %2.f°C (%d)\n",adc_offset_temp_error*TEMPERATURE_CALCULATION,adc_offset_temp_error-ADC_VALUE_FOR_23C);
+    printf("ADC offset error %.4f°C (%d)\n",adc_offset_temp_error*TEMPERATURE_CALCULATION,adc_offset_temp_error/*-ADC_VALUE_FOR_23C*/);
 
     //-------------------------------------------------------------------
     //------Bestimmen ob die Werte in definierten Bereichen liegen-------
@@ -156,9 +157,17 @@ int main() {
                     printf("Eingabe befindet sich außerhalb der Grenzen!");
                 } else
                 {
-                    adc_offset_temp_error_input = (adc_offset_temp_error_input+23)/77.57588*1024/1.1;
+                    adc_offset_temp_error_input = (adc_offset_temp_error_input+23)/77.57588/(1.1/1024);
                     char adc_offset_temp_error_input_hex[5];
                     sprintf(adc_offset_temp_error_input_hex, "%x", adc_offset_temp_error_input);
+                    char adc_offset_temp_error_input_hex_help[5];
+                    strcpy(adc_offset_temp_error_input_hex_help,adc_offset_temp_error_input_hex);
+
+                    adc_offset_temp_error_input_hex[3]=adc_offset_temp_error_input_hex_help[0];
+                    adc_offset_temp_error_input_hex[2]=0;
+                    adc_offset_temp_error_input_hex[1]=adc_offset_temp_error_input_hex_help[2];
+                    adc_offset_temp_error_input_hex[0]=adc_offset_temp_error_input_hex_help[1];
+
                     write_file(eeprom_datei,ADC_OFFSET_ERROR_TEMP_START_POSITION,2,adc_offset_temp_error_input_hex);
                     cd4=true;
                 }
