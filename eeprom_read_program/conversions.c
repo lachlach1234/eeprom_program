@@ -60,6 +60,7 @@ u_int16_t two_byte_combining_swap(u_int8_t byte_high, u_int8_t byte_low)
     return result;
 }
 
+/*
 u_int32_t four_byte_combining_swap(u_int8_t byte_hh,u_int8_t byte_h,u_int8_t byte_l,u_int8_t byte_ll)
 {
     u_int16_t result_high, result_low;
@@ -73,4 +74,4 @@ u_int32_t four_byte_combining_swap(u_int8_t byte_hh,u_int8_t byte_h,u_int8_t byt
     result |= result_high;
     return result;
 }
-
+*/

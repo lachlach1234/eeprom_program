@@ -49,6 +49,7 @@ u_int16_t read_two_byte_and_convert(FILE * datei, int start_position)
 
 }
 
+/*
 u_int32_t read_four_byte_and_convert(FILE * datei, int start_position)
 {
     u_int8_t binaer[4];
@@ -61,6 +62,5 @@ u_int32_t read_four_byte_and_convert(FILE * datei, int start_position)
     binaer[3]=hex_to_binaer(read.array[6],read.array[7]);
     result=four_byte_combining_swap(binaer[0],binaer[1],binaer[2],binaer[3]);
     return result;
-
 }
-
+*/

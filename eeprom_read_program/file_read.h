@@ -22,7 +22,7 @@ void write_file(FILE *, int start_position, int menge,char []);
 //Funktion um 1/2/4 byte aus HEX Datei zu lesen und zu binaer umzuwandeln
 u_int8_t read_byte_and_convert(FILE * , int start_position);
 u_int16_t read_two_byte_and_convert(FILE * , int start_position);
-u_int32_t read_four_byte_and_convert(FILE * , int start_position);
+//u_int32_t read_four_byte_and_convert(FILE * , int start_position);
 
 #endif //EEPROM_READ_PROGRAM_FILE_READ_H
 
