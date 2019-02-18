@@ -15,7 +15,7 @@
 #define ADC_SLOPE_ERROR_START_POSITION 19
 #define ADC_OFFSET_ERROR_START_POSITION 23
 #define ADC_OFFSET_ERROR_TEMP_START_POSITION 31
-#define CHECK_SUM_START_POSITION 73
+#define CHECK_SUM_START_POSITION 73 //41 für .eep 73 für .hex
 
 //Macros fuer Berechnungen
 #define VOLTAGE_CALCULATION 1.1/1024*4.3
@@ -50,6 +50,31 @@ int main() {
             check=true;
         }
     }while(check==false);
+
+    int input,border_for_cheksum,checksum_start_position;
+    bool check1=false;
+    printf("Geben Sie an ob es sich um eine .epp(1) oder .hex(2) Datei handelt");
+    do {
+        fflush(stdin);
+        scanf("%d", &input);
+        if (input == 1)
+        {
+            check=true;
+            border_for_cheksum=20;
+            checksum_start_position=41;
+
+        }
+        else if (input == 2)
+        {
+            check=true;
+            border_for_cheksum=36;
+            checksum_start_position=73;
+
+        } else
+        {
+            printf("Ungültige Eingabe!");
+        }
+    }while(check1=false);
 
     //-------------------------------------------------------------------
     //-------------Auslesen des Fikes und Anzeigen der Werte-------------
@@ -125,6 +150,27 @@ int main() {
                 {
                     char adc_slope_error_input_hex[5];
                     sprintf(adc_slope_error_input_hex, "%X", adc_slope_error_input);
+                    char adc_slope_error_input_hex_help[5];
+                    strcpy(adc_slope_error_input_hex_help,adc_slope_error_input_hex);
+
+                    if(adc_slope_error_input >= 256 && adc_slope_error_input <= 4095)
+                    {
+                        adc_slope_error_input_hex[3]=adc_slope_error_input_hex_help[0];
+                        adc_slope_error_input_hex[2]=48;
+                        adc_slope_error_input_hex[1]=adc_slope_error_input_hex_help[2];
+                        adc_slope_error_input_hex[0]=adc_slope_error_input_hex_help[1];
+                    }else if(adc_slope_error_input >= 4096)
+                    {
+                        adc_slope_error_input_hex[3]=adc_slope_error_input_hex_help[1];
+                        adc_slope_error_input_hex[2]=adc_slope_error_input_hex_help[0];
+                        adc_slope_error_input_hex[1]=adc_slope_error_input_hex_help[3];
+                        adc_slope_error_input_hex[0]=adc_slope_error_input_hex_help[2];
+                    }
+                    else
+                    {
+                        adc_slope_error_input_hex[3]=48;
+                        adc_slope_error_input_hex[2]=48;
+                    }
                     write_file(eeprom_datei,ADC_SLOPE_ERROR_START_POSITION,4,adc_slope_error_input_hex);
                     cd2=true;
                 }
@@ -166,14 +212,14 @@ int main() {
                     if(adc_offset_temp_error_input >= 256)
                     {
                         adc_offset_temp_error_input_hex[3]=adc_offset_temp_error_input_hex_help[0];
-                        adc_offset_temp_error_input_hex[2]=48;
+                        adc_offset_temp_error_input_hex[2]='0';
                         adc_offset_temp_error_input_hex[1]=adc_offset_temp_error_input_hex_help[2];
                         adc_offset_temp_error_input_hex[0]=adc_offset_temp_error_input_hex_help[1];
                     }
                     else
                     {
-                        adc_offset_temp_error_input_hex[3]=48;
-                        adc_offset_temp_error_input_hex[2]=48;
+                        adc_offset_temp_error_input_hex[3]='0';
+                        adc_offset_temp_error_input_hex[2]='0';
                     }
 
                     write_file(eeprom_datei,ADC_OFFSET_ERROR_TEMP_START_POSITION,4,adc_offset_temp_error_input_hex);
@@ -202,7 +248,7 @@ int main() {
     char checksum_hex[3];
 
 
-    for (i=0; i<36; i++)
+    for (i=0; i<border_for_cheksum; i++) //20 für .eep    36 für .hex
     {
         read=read_byte_and_convert(eeprom_datei, position);
         data_sum = data_sum + read;
@@ -217,14 +263,14 @@ int main() {
     if(checksum >= 16)
     {
         printf("Checksumme: 0x%X",checksum);
-        write_file(eeprom_datei,CHECK_SUM_START_POSITION,2,checksum_hex);
+        write_file(eeprom_datei,checksum_start_position,2,checksum_hex); //41 für .eep
     }
     else
     {
         char a[] = {48};
         printf("Checksumme: 0x0%X",checksum);
-        write_file(eeprom_datei,CHECK_SUM_START_POSITION,1,a);
-        write_file(eeprom_datei,CHECK_SUM_START_POSITION+1,1,checksum_hex);
+        write_file(eeprom_datei,checksum_start_position,1,a);
+        write_file(eeprom_datei,checksum_start_position+1,1,checksum_hex);
     }
 
     //-------------------------------------------------------------------

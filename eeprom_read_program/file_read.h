@@ -13,7 +13,7 @@ struct read_write_array
     u_int8_t array[8];
 };
 
-//Funktion um maximal acht digits aus einer Datei zu leisen mit angabe der start position
+//Funktion um maximal acht digits aus einer Datei zu lesen mit angabe der start position
 void read_file(FILE * , int start_position, int menge, struct read_write_array * read);
 
 //Funktion um maximal acht digits in eine Datei zu  schreiben mit angabe der start position
