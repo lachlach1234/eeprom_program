@@ -51,22 +51,24 @@ int main() {
         }
     }while(check==false);
 
-    int input,border_for_cheksum,checksum_start_position;
+    int border_for_cheksum,checksum_start_position;
     bool check1=false;
+    char input;
     printf("Geben Sie an ob es sich um eine .epp(1) oder .hex(2) Datei handelt");
     do {
         fflush(stdin);
-        scanf("%d", &input);
-        if (input == 1)
+        //gets(input);
+        scanf("%c", &input);
+        if (input == '1')
         {
-            check=true;
+            check1=1;
             border_for_cheksum=20;
             checksum_start_position=41;
 
         }
-        else if (input == 2)
+        else if (input == '2')
         {
-            check=true;
+            check1=1;
             border_for_cheksum=36;
             checksum_start_position=73;
 
@@ -74,7 +76,7 @@ int main() {
         {
             printf("Ungültige Eingabe!");
         }
-    }while(check1=false);
+    }while(check1==0);
 
     //-------------------------------------------------------------------
     //-------------Auslesen des Fikes und Anzeigen der Werte-------------
@@ -93,12 +95,12 @@ int main() {
     adc_offset_error=read_two_byte_and_convert(eeprom_datei,ADC_OFFSET_ERROR_START_POSITION);
     adc_offset_temp_error=read_two_byte_and_convert(eeprom_datei,ADC_OFFSET_ERROR_TEMP_START_POSITION);
 
-    printf("Folgende Werte wurden aus der EEPROM Datei gelesen:\n");
+    printf("\nFolgende Werte wurden aus der EEPROM Datei gelesen:\n");
     printf("StatusByte: %d (%x)\n",status_byte,status_byte);
     printf("2,5v value: %.2fV (%d)\n",adc_measurement_2_5v*VOLTAGE_CALCULATION,adc_measurement_2_5v);
     printf("4v value: %.2fV (%d)\n",adc_measurement_4v*VOLTAGE_CALCULATION,adc_measurement_4v);
-    printf("ADC slope error %d yV\n",adc_slope_error);
-    printf("ADC offset error %zu\n",adc_offset_error);
+    printf("ADC slope error %dyV = %dmV\n",adc_slope_error,adc_slope_error/1000);
+    printf("ADC offset error %dyV\n",adc_offset_error);
     printf("ADC offset temp error %.4f°C (%d)\n",adc_offset_temp_error*TEMPERATURE_CALCULATION,adc_offset_temp_error-ADC_VALUE_FOR_23C);
 
     //-------------------------------------------------------------------
@@ -128,7 +130,7 @@ int main() {
     //------------------Verändern der Daten wenn erwünscht---------------
 
     printf("\n\nWollen Sie irgendwelche Korekturen vornehmen?\nSchreiben Sie y (für Ja) oder n (für Nein)\n");
-    //char adc_slope_error_input_hex[3];
+    //char adc_slope_error_input_hex[3];e
 
     do {
         fflush(stdin);
@@ -187,7 +189,25 @@ int main() {
                     printf("Eingabe befindet sich außerhalb der Grenzen!");
                 } else
                 {
-                    //Wert umwandeln und in File Speichern
+                    char adc_offset_error_input_hex[5];
+                    sprintf(adc_offset_error_input_hex, "%X", adc_offset_error_input);
+                    char adc_offset_error_input_hex_help[5];
+                    strcpy(adc_offset_error_input_hex_help,adc_offset_error_input_hex);
+
+                    if(adc_offset_error_input >= 256)
+                    {
+                        adc_offset_error_input_hex[3]=adc_offset_error_input_hex_help[0];
+                        adc_offset_error_input_hex[2]='0';
+                        adc_offset_error_input_hex[1]=adc_offset_error_input_hex_help[2];
+                        adc_offset_error_input_hex[0]=adc_offset_error_input_hex_help[1];
+                    }
+                    else
+                    {
+                        adc_offset_error_input_hex[3]='0';
+                        adc_offset_error_input_hex[2]='0';
+                    }
+
+                    write_file(eeprom_datei,ADC_OFFSET_ERROR_START_POSITION,4,adc_offset_error_input_hex);
                     cd3=true;
                 }
             }while (cd3==false);
