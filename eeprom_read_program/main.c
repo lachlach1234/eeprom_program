@@ -35,12 +35,18 @@ int main() {
     //------------------Einlesen und Öffnen vom File---------------------
 
     FILE *eeprom_datei;
-    char pfad[500];
+    char pfad[500]= {0};
     bool check=false;
 
     printf("Bitte geben Sie den Pfad für die EEPROM Datei ein!");
     do {
         gets(pfad);
+
+        /*int i=1;
+
+        do{
+
+        }while(i==0);*/
 
         eeprom_datei = fopen(pfad, "r+");
         if (eeprom_datei == NULL) {
@@ -101,7 +107,7 @@ int main() {
     printf("4v value: %.2fV (%d)\n",adc_measurement_4v*VOLTAGE_CALCULATION,adc_measurement_4v);
     printf("ADC slope error %dyV = %dmV\n",adc_slope_error,adc_slope_error/1000);
     printf("ADC offset error %dyV\n",adc_offset_error);
-    printf("ADC offset temp error %.4f°C (%d)\n",adc_offset_temp_error*TEMPERATURE_CALCULATION,adc_offset_temp_error-ADC_VALUE_FOR_23C);
+    printf("ADC offset temp error %.1f°C (%d)\n",adc_offset_temp_error*TEMPERATURE_CALCULATION,adc_offset_temp_error-ADC_VALUE_FOR_23C);
 
     //-------------------------------------------------------------------
     //------Bestimmen ob die Werte in definierten Bereichen liegen-------
