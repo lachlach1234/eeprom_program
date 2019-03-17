@@ -19,7 +19,7 @@
 
 //Macros fuer Berechnungen
 #define VOLTAGE_CALCULATION 1.1/1024*4.3
-#define TEMPERATURE_CALCULATION 1.1/1024*77.57588-23
+#define TEMPERATURE_CALCULATION 0.892857-245.35709//1.1/1024*77.57588-23
 #define ADC_VALUE_FOR_23C 276
 
 //Defines für Grenzen
@@ -36,53 +36,47 @@ int main() {
 
     FILE *eeprom_datei;
     char pfad[500]= {0};
-    bool check=false;
+    bool check_file_open=false;
 
     printf("Bitte geben Sie den Pfad für die EEPROM Datei ein!");
     do {
         gets(pfad);
-
-        /*int i=1;
-
-        do{
-
-        }while(i==0);*/
 
         eeprom_datei = fopen(pfad, "r+");
         if (eeprom_datei == NULL) {
             printf("Datei kann nicht geöffnet werden!");
         } else {
             printf("öffen hat funktioniert\n\n");
-            check=true;
+            check_file_open=true;
         }
-    }while(check==false);
+    }while(check_file_open==false);
 
+    int pfad_input_position=499;
     int border_for_cheksum,checksum_start_position;
-    bool check1=false;
-    char input;
-    printf("Geben Sie an ob es sich um eine .epp(1) oder .hex(2) Datei handelt");
-    do {
-        fflush(stdin);
-        //gets(input);
-        scanf("%c", &input);
-        if (input == '1')
-        {
-            check1=1;
-            border_for_cheksum=20;
-            checksum_start_position=41;
+    bool file_variables_set=false;
 
-        }
-        else if (input == '2')
+    do{
+        if(pfad[pfad_input_position]==0)
         {
-            check1=1;
-            border_for_cheksum=36;
-            checksum_start_position=73;
-
-        } else
-        {
-            printf("Ungültige Eingabe!");
+            pfad_input_position--;
         }
-    }while(check1==0);
+        else
+        {
+            if(pfad[pfad_input_position]=='x' && pfad[pfad_input_position-1]=='e' && pfad[pfad_input_position-2]=='h' && pfad[pfad_input_position-3]=='.')
+            {
+                file_variables_set=true;
+                border_for_cheksum=36;
+                checksum_start_position=73;
+            }
+            else if(pfad[pfad_input_position]=='p' && pfad[pfad_input_position-1]=='e' && pfad[pfad_input_position-2]=='e' && pfad[pfad_input_position-3]=='.')
+            {
+                file_variables_set=true;
+                border_for_cheksum=20;
+                checksum_start_position=41;
+            }
+        }
+    }
+    while(file_variables_set==0);
 
     //-------------------------------------------------------------------
     //-------------Auslesen des Fikes und Anzeigen der Werte-------------
@@ -102,7 +96,7 @@ int main() {
     adc_offset_temp_error=read_two_byte_and_convert(eeprom_datei,ADC_OFFSET_ERROR_TEMP_START_POSITION);
 
     printf("\nFolgende Werte wurden aus der EEPROM Datei gelesen:\n");
-    printf("StatusByte: %d (%x)\n",status_byte,status_byte);
+    printf("StatusByte: %d (%x)(dazu schreiben was was bedeutet)\n",status_byte,status_byte);
     printf("2,5v value: %.2fV (%d)\n",adc_measurement_2_5v*VOLTAGE_CALCULATION,adc_measurement_2_5v);
     printf("4v value: %.2fV (%d)\n",adc_measurement_4v*VOLTAGE_CALCULATION,adc_measurement_4v);
     printf("ADC slope error %dyV = %dmV\n",adc_slope_error,adc_slope_error/1000);
@@ -229,7 +223,7 @@ int main() {
                     printf("Eingabe befindet sich außerhalb der Grenzen!");
                 } else
                 {
-                    adc_offset_temp_error_input = (input_temp_error+23)/77.57588/(1.1/1024);
+                    adc_offset_temp_error_input = (input_temp_error+23)/77.57588/(1.1/1024); //!!!!!!!!!!!!!!!!!!
                     char adc_offset_temp_error_input_hex[5];
                     sprintf(adc_offset_temp_error_input_hex, "%X", adc_offset_temp_error_input);
                     char adc_offset_temp_error_input_hex_help[5];
@@ -267,9 +261,8 @@ int main() {
     //-------------------------------------------------------------------
     //-------------Berechnung und Schreiben der Checksumme---------------
 
-    u_int16_t checksum = 43;
-    u_int16_t read_file;
     u_int8_t read;
+    u_int16_t checksum = 43;
     int i,data_sum=0,position=1;
     char checksum_hex[3];
 
