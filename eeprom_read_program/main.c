@@ -24,11 +24,11 @@
 
 //Defines für Grenzen
 #define ADC_SLOPE_ERROR_LOWER_BORDER 0
-#define ADC_SLOPE_ERROR_UPPER_BORDER 10000
+#define ADC_SLOPE_ERROR_UPPER_BORDER 100000
 #define ADC_OFFSET_ERROR_LOWER_BORDER 0
-#define ADC_OFFSET_ERROR_UPPER_BORDER 10000
+#define ADC_OFFSET_ERROR_UPPER_BORDER 100000
 #define ADC_OFFSET_ERROR_TEMP_LOWER_BORDER 0
-#define ADC_OFFSET_ERROR_TEMP_UPPER_BORDER 10000
+#define ADC_OFFSET_ERROR_TEMP_UPPER_BORDER 100000
 
 int main() {
 
@@ -96,12 +96,12 @@ int main() {
     adc_offset_temp_error=read_two_byte_and_convert(eeprom_datei,ADC_OFFSET_ERROR_TEMP_START_POSITION);
 
     printf("\nFolgende Werte wurden aus der EEPROM Datei gelesen:\n");
-    printf("StatusByte: %d (%x)(dazu schreiben was was bedeutet)\n",status_byte,status_byte);
+    printf("StatusByte: 0x%X (%d) Bedeutung 0xFC: beide Spannungen gemessen; 0xFD: 2,5V Kalibrierung durchgefuehrt; 0xFE: 4v Kalibrierung durchgefuehrt\n",status_byte,status_byte);
     printf("2,5v value: %.2fV (%d)\n",adc_measurement_2_5v*VOLTAGE_CALCULATION,adc_measurement_2_5v);
     printf("4v value: %.2fV (%d)\n",adc_measurement_4v*VOLTAGE_CALCULATION,adc_measurement_4v);
-    printf("ADC slope error %dyV = %dmV\n",adc_slope_error,adc_slope_error/1000);
-    printf("ADC offset error %dyV\n",adc_offset_error);
-    printf("ADC offset temp error %.1f°C (%d)\n",adc_offset_temp_error*TEMPERATURE_CALCULATION,adc_offset_temp_error-ADC_VALUE_FOR_23C);
+    printf("ADC slope error %dyV = %dmV\n",adc_slope_error,(adc_slope_error+500)/1000);
+    printf("ADC offset error %dyV = %dmV\n",adc_offset_error,(adc_offset_error+500)/1000);
+    printf("ADC offset temp error %.1f°C \n",adc_offset_temp_error*TEMPERATURE_CALCULATION);
 
     //-------------------------------------------------------------------
     //------Bestimmen ob die Werte in definierten Bereichen liegen-------
