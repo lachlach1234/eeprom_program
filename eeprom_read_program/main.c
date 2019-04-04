@@ -1,12 +1,13 @@
 
 
 #include <stdio.h>
-//#include <stdlib.h>
+#include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
 #include "conversions.h"
 #include "file_read.h"
 #include "string.h"
+
 
 //Defines zum Auslesen und Schreiben
 #define STATUS_START_POSITION 9
@@ -273,6 +274,7 @@ int main() {
         data_sum = data_sum + read;
         position += 2;
     }
+    printf("Data_sum %d\n",data_sum);
 
     checksum = data_sum&0x00ff;
     checksum = 0xff-checksum;
